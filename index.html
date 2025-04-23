@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPA: The Untold Stories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    .landing, .menu, .viewer {
+      display: none;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .active {
+      display: block;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 250px;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .pdf-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 141%;
+      height: 0;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .pdf-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .btn {
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Halaman Landing -->
+  <section id="landing" class="landing active">
+    <h1>IPA: The Untold Stories</h1>
+    <button class="btn" onclick="showMenu()">Masuk</button>
+  </section>
+
+  <!-- Halaman Menu Materi -->
+  <section id="menu" class="menu">
+    <h1>Pilih Materi</h1>
+    <div class="card-container">
+      <div class="card" onclick="openPDF('sel.pdf')">Sel & Struktur Makhluk Hidup</div>
+      <div class="card" onclick="openPDF('gaya.pdf')">Gaya & Energi</div>
+      <div class="card" onclick="openPDF('cahaya.pdf')">Cahaya & Gelombang</div>
+    </div>
+  </section>
+
+  <!-- Viewer PDF -->
+  <section id="viewer" class="viewer">
+    <h1 id="judulMateri">Materi</h1>
+    <div class="pdf-container">
+      <iframe id="pdfFrame" src=""></iframe>
+    </div>
+    <button class="btn" onclick="backToMenu()">Kembali ke Menu</button>
+  </section>
+
+  <script>
+    function showMenu() {
+      document.getElementById('landing').classList.remove('active');
+      document.getElementById('menu').classList.add('active');
+    }
+
+    function openPDF(file) {
+      document.getElementById('menu').classList.remove('active');
+      document.getElementById('viewer').classList.add('active');
+      document.getElementById('pdfFrame').src = file;
+      document.getElementById('judulMateri').textContent = file.replace('.pdf', '').toUpperCase();
+    }
+
+    function backToMenu() {
+      document.getElementById('viewer').classList.remove('active');
+      document.getElementById('menu').classList.add('active');
+      document.getElementById('pdfFrame').src = "";
+    }
+  </script>
+
+</body>
+</html>
